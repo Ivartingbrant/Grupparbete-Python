@@ -1,7 +1,6 @@
 """
 Läser in och bearbetar data
 """
-import os
 import csv
 
 
@@ -11,27 +10,23 @@ def load_data(filename="Data/ecommerce_sales.csv"):
         list[dict]
         dict: Ett felmeddelande om filen inte hittas.
     """
-
-    if os.path.exists(filename):
+    try:
         with open(filename, "r", newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f, delimiter=",")
 
-            data = [
-                {
-                    "order_id": row["order_id"],
-                    "date": row["date"],
-                    "city": row["city"],
-                    "category": row["category"],
-                    "price": float(row["price"]),
-                    "units": int(row["units"]),
-                    "revenue": float(row["revenue"])
-                }
-                for row in reader
-            ]
+            data = []
+
+            for row in reader:
+                row["price"] = float(row["price"])
+                row["units"] = int(row["units"])
+                row["revenue"] = float(row["revenue"])
+                data.append(row)
 
         return data
-    return {"message": "No data found"}
+
+    except FileNotFoundError:
+        print("Hittar inte filen")
 
 
 if __name__ == "__main__":
-    print(load_data()[-10:])
+    print(load_data()[:10])
