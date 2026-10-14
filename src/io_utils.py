@@ -8,7 +8,9 @@ def load_data(filename="Data/ecommerce_sales.csv"):
     """Läser in data från en fil och konverterar värdena till lämpliga datatyper.
     Returns:
         list[dict]
-        dict: Ett felmeddelande om filen inte hittas.
+
+    Raises:
+        FileNotFoundError: Ett felmeddelande om filen inte hittas.
     """
     try:
         with open(filename, "r", newline="", encoding="utf-8") as f:
