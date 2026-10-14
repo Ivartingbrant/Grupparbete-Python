@@ -3,7 +3,6 @@ Läser in och bearbetar data
 """
 import os
 import csv
-# from datetime import date
 
 
 def load_data(filename="Data/ecommerce_sales.csv"):
@@ -21,7 +20,6 @@ def load_data(filename="Data/ecommerce_sales.csv"):
                 {
                     "order_id": row["order_id"],
                     "date": row["date"],
-                    # "date": date.fromisoformat(row["date"]),
                     "city": row["city"],
                     "category": row["category"],
                     "price": float(row["price"]),
