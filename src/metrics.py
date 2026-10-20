@@ -35,6 +35,7 @@ def revenue_by_city(data):
         city_revenue[city] = round(city_revenue[city], 2)
 
     return city_revenue
+# Srilatha - start
 def top_categories(data):
     #Calculates total revenue per category and returns the top 3.
     category_totals = {}
@@ -55,9 +56,15 @@ def top_categories(data):
     
     # Return only the top 3 items
     return sorted_categories[:3]
+
+
+print("\nTop 3 categories by revenue:")
+for category, revenue in top_categories(data):
+    print(f"{category}: {revenue:.2f}")
+
+# Srilatha - end
 def total_revenue(data): #Räknar ut den totala intäkten
     return sum(row["revenue"] for row in data)
 
 def total_units(data): #Räknar ut totala antal enheter sålda
     return sum(row["units"] for row in data)
-
