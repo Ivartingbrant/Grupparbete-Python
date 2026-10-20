@@ -18,3 +18,9 @@ print(category_counts)
 
 for category, revenue in revenue_per_category.items():
     print(f"{category}: {revenue:.2f}")
+def total_revenue(data): #Räknar ut den totala intäkten
+    return sum(row["revenue"] for row in data)
+
+def total_units(data): #Räknar ut totala antal enheter sålda
+    return sum(row["units"] for row in data)
+
