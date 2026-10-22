@@ -1,6 +1,17 @@
 from io_utils import load_data
 import statistics
 
+data = load_data()
+
+# Ivar - start
+def total_revenue(data): #Räknar ut den totala intäkten
+    return sum(row["revenue"] for row in data)
+
+def total_units(data): #Räknar ut totala antal enheter sålda
+    return sum(row["units"] for row in data)
+# Ivar - end
+
+# Fredrik - start
 def average_order_value(data):
     total_revenue = 0
     
@@ -14,37 +25,36 @@ def average_order_value(data):
     else:
         return 0
 
-def median (data):
+def median(data):
     revenues = []
     for row in data:
         revenues.append(row["revenue"])
 
-        return statistics.median(revenues)
+    return statistics.median(revenues)
 
-    
-data = load_data()
-print(f"AOV för hela året är: {round(average_order_value(data), 2)} kr")
-print(f"Medianförsäljningen ligger på: {median(data)} kr under året.")
-import collections
-from io_utils import load_data
+# print(f"AOV för hela året är: {round(average_order_value(data), 2)} kr") #Kan vara bra att ha med i report sen
+#print(f"Medianförsäljningen ligger på: {median(data)} kr under året.") #Kan vara bra att ha med i report sen
+# Fredrik - end
 
-data = load_data()
+# Casper - start
 def category_analysis(data):
-    category_counts = collections.Counter()
-    revenue_per_category = collections.defaultdict(float)
+    category_counts = {}
+    revenue_per_category = {}
 
     for row in data:
         category = row["category"]
+
+        if category not in category_counts:
+            category_counts[category] = 0
+            revenue_per_category[category] = 0
+
         category_counts[category] += 1
         revenue_per_category[category] += row["revenue"]
 
     return category_counts, revenue_per_category
+# Casper - end
 
-category_counts, revenue_per_category = category_analysis(data)
-print(category_counts)
-
-for category, revenue in revenue_per_category.items():
-    print(f"{category}: {revenue:.2f}")
+# Mustafa - start
 def revenue_by_city(data):
     """Summerar intäkterna per stad, avrundat till två decimaler."""
     city_revenue = {}
@@ -62,6 +72,8 @@ def revenue_by_city(data):
         city_revenue[city] = round(city_revenue[city], 2)
 
     return city_revenue
+# Mustafa - end
+
 # Srilatha - start
 def top_categories(data):
     #Calculates total revenue per category and returns the top 3.
@@ -85,13 +97,7 @@ def top_categories(data):
     return sorted_categories[:3]
 
 
-print("\nTop 3 categories by revenue:")
-for category, revenue in top_categories(data):
-    print(f"{category}: {revenue:.2f}")
-
+#print("\nTop 3 categories by revenue:") #Kan vara bra att ha med i report sen
+#for category, revenue in top_categories(data): #Kan vara bra att ha med i report sen
+#    print(f"{category}: {revenue:.2f}") #Kan vara bra att ha med i report sen
 # Srilatha - end
-def total_revenue(data): #Räknar ut den totala intäkten
-    return sum(row["revenue"] for row in data)
-
-def total_units(data): #Räknar ut totala antal enheter sålda
-    return sum(row["units"] for row in data)
