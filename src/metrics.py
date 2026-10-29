@@ -35,8 +35,8 @@ def calc_median(data):
 
     return statistics.median(revenues)
 
-# print(f"AOV för hela året är: {round(average_order_value(data), 2)} kr") #Kan vara bra att ha med i report sen
-# print(f"Medianförsäljningen ligger på: {median(data)} kr under året.") #Kan vara bra att ha med i report sen
+# print(f"AOV för årets första sex månader är: {round(average_order_value(data), 2)} kr") #Kan vara bra att ha med i report sen
+# print(f"Medianförsäljningen ligger på: {median(data)} kr under första halvåret.") #Kan vara bra att ha med i report sen
 # Fredrik - end
 
 # Casper - start
