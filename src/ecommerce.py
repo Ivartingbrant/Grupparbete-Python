@@ -3,7 +3,7 @@ units sold, average order value, revenue by city and category,
 and the top three categories by revenue.
 """
 
-from src.metrics import (
+from metrics import (
     total_revenue,
     total_units,
     average_order_value,
