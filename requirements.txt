@@ -1,0 +1,4 @@
+# Used by src/viz.py to load and prepare chart data.
+pandas
+# Used by src/viz.py to draw the charts.
+matplotlib

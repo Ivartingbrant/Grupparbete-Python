@@ -1,16 +1,16 @@
 """
-Läser in och bearbetar data
+Reads and processes data from a CSV file.
 """
 import csv
 
 
 def load_data(filename="Data/ecommerce_sales.csv"):
-    """Läser in data från en fil och konverterar värdena till lämpliga datatyper.
+    """Reads data from a file and converts the values to data types
     Returns:
         list[dict]
 
     Raises:
-        FileNotFoundError: Ett felmeddelande om filen inte hittas.
+        FileNotFoundError: An error message if the file is not found
     """
     try:
         with open(filename, "r", newline="", encoding="utf-8") as f:
@@ -27,7 +27,7 @@ def load_data(filename="Data/ecommerce_sales.csv"):
         return data
 
     except FileNotFoundError:
-        print("Hittar inte filen")
+        print("File not found")
 
 
 if __name__ == "__main__":
