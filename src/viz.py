@@ -16,6 +16,27 @@ def plot_monthly_data(ax, monthly_stats):
     plt.tight_layout()
     plt.setp(ax.get_xticklabels(), rotation=60)
     return ax
+
+def plot_monthly_revenue(data):
+    """Total revenue per month"""
+    df = pd.DataFrame(data)
+    df["date"] = pd.to_datetime(df["date"])
+
+    monthly_revenue = (
+        df.groupby(df["date"].dt.to_period("M"))["revenue"].sum()
+    )
+
+    fig, ax = plt.subplots(figsize=(10,6))
+    monthly_revenue.plot.bar(ax=ax)
+    ax.set_title("försäljning per månad")
+    ax.set_xlabel("Månad")
+    ax.set_ylabel("Intäkter (SEK)")
+    ax.grid(True, axis="y", alpha=0.6)
+    ax.tick_params(axis="x", rotation=0)
+
+    plt.tight_layout()
+    return fig, ax
+
 import matplotlib.ticker as ticker
 import pandas as pd
 
@@ -49,6 +70,21 @@ def plot_category_analysis(category_counts, revenue_per_category):
     ax[0].yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
 
     plt.tight_layout()
+
+def plot_revenue_by_city(city_revenue):
+    """Barchart of revenue by city, from highset to lowest"""
+    revenue = pd.Series(city_revenue).sort_values(ascending=False)
+
+    fig, ax = plt.subplots(figsize=(9,5))
+    ax.bar(revenue.index, revenue.values)
+    ax.set_title("Intäkter per stad")
+    ax.set_xlabel("Stad")
+    ax.set_ylabel("Intäkter (SEK)")
+    ax.tick_params(axis="x", rotation=0)
+    ax.grid(True, axis="y", alpha=0.6)
+    ax.yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
+    plt.tight_layout()
+    return fig, ax
 
 # Srilatha_start
 
