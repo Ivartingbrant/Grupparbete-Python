@@ -3,7 +3,7 @@ total units sold, average order value, median revenue, revenue by city
 and product category, and the top three categories by revenue.
 """
 
-from metrics import (
+from src.metrics import (
     total_revenue,
     total_units,
     average_order_value,
@@ -23,6 +23,7 @@ class EcommerceAnalyzer:
 
     @property
     def data(self):
+        """Return sales data."""
         return self.__data
 
     def __str__(self):
