@@ -2,11 +2,12 @@ import matplotlib.pyplot as plt
 
 
 
-def plot_monthly_data(ax, monthly_stats):
+def plot_monthly_data(monthly_stats):
    # Två visualiseringar i samma diagram, AOV vs median
+    fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(monthly_stats.index.astype(str), monthly_stats["mean"], label="AOV - genomsnittligt ordervärde")
     ax.plot(monthly_stats.index.astype(str), monthly_stats["median"], color="black", label="Medianordervärde")
-    
+
     ax.set_title("Genomsnittligt ordervärde (AOV) vs median per månad")
     ax.set_xlabel("Månad")
     ax.set_ylabel("Belopp (kr/köp)")
@@ -15,7 +16,7 @@ def plot_monthly_data(ax, monthly_stats):
 
     plt.tight_layout()
     plt.setp(ax.get_xticklabels(), rotation=60)
-    return ax
+    return fig, ax
 
 def plot_monthly_revenue(data):
     """Total revenue per month"""
@@ -26,13 +27,15 @@ def plot_monthly_revenue(data):
         df.groupby(df["date"].dt.to_period("M"))["revenue"].sum()
     )
 
-    fig, ax = plt.subplots(figsize=(10,6))
+    fig, ax = plt.subplots(figsize=(10,5))
     monthly_revenue.plot.bar(ax=ax)
     ax.set_title("försäljning per månad")
     ax.set_xlabel("Månad")
     ax.set_ylabel("Intäkter (SEK)")
+    ax.axhline(monthly_revenue.mean(), label="Medelvärde försäljning", linestyle="--", color="red")
     ax.grid(True, axis="y", alpha=0.6)
     ax.tick_params(axis="x", rotation=0)
+    ax.legend()
 
     plt.tight_layout()
     return fig, ax
@@ -75,14 +78,16 @@ def plot_revenue_by_city(city_revenue):
     """Barchart of revenue by city, from highset to lowest"""
     revenue = pd.Series(city_revenue).sort_values(ascending=False)
 
-    fig, ax = plt.subplots(figsize=(9,5))
+    fig, ax = plt.subplots(figsize=(10,5))
     ax.bar(revenue.index, revenue.values)
     ax.set_title("Intäkter per stad")
     ax.set_xlabel("Stad")
     ax.set_ylabel("Intäkter (SEK)")
     ax.tick_params(axis="x", rotation=0)
     ax.grid(True, axis="y", alpha=0.6)
+    ax.axhline(revenue.mean(), label=rf"Medelintäkt: {revenue.mean():.0f}", linestyle="--", color="red")
     ax.yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
+    ax.legend()
     plt.tight_layout()
     return fig, ax
 
@@ -95,12 +100,13 @@ def plot_revenue_by_category(top_categories_by_revenue):
         top_categories_by_revenue, columns=["category", "revenue"]
     )
 
-    fig, ax = plt.subplots(figsize=(9, 5))
+    fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(chart_data["category"], chart_data["revenue"], color="steelblue")
     ax.set_title("Top 3 Categories by Revenue")
     ax.set_xlabel("Category")
     ax.set_ylabel("Revenue")
     ax.grid(True, axis="y")
+    ax.yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
     plt.tight_layout()
 
