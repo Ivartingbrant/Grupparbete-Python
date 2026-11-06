@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 def plot_monthly_data(monthly_stats):
    # Två visualiseringar i samma diagram, AOV vs median
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(monthly_stats.index.astype(str), monthly_stats["mean"], label="AOV - genomsnittligt ordervärde")
-    ax.plot(monthly_stats.index.astype(str), monthly_stats["median"], color="black", label="Medianordervärde")
+    ax.bar(monthly_stats.index.strftime("%B"), monthly_stats["mean"], label="AOV - genomsnittligt ordervärde")
+    ax.plot(monthly_stats.index.strftime("%B"), monthly_stats["median"], color="black", label="Medianordervärde")
 
     ax.set_title("Genomsnittligt ordervärde (AOV) vs median per månad")
     ax.set_xlabel("Månad")
@@ -28,7 +28,7 @@ def plot_monthly_revenue(data):
     )
 
     fig, ax = plt.subplots(figsize=(10,5))
-    monthly_revenue.plot.bar(ax=ax)
+    ax.bar(monthly_revenue.index.strftime("%B"), monthly_revenue.values)
     ax.set_title("försäljning per månad")
     ax.set_xlabel("Månad")
     ax.set_ylabel("Intäkter (SEK)")
@@ -53,7 +53,7 @@ def plot_category_analysis(category_counts, revenue_per_category):
     ax[0].bar(revenue_per_category.keys(), revenue_per_category.values())
     ax[0].set_title("Intäkt per kategori", fontsize=15)
 
-    # ax[0].set_xlabel("Kategori")
+    ax[0].set_xlabel("Kategori")
     ax[0].set_ylabel("Intäkt", fontsize=12)
     ax[0].tick_params(axis="x", rotation=0)
     ax[0].grid(True, axis="y", linestyle="--", alpha=0.6)
@@ -62,7 +62,7 @@ def plot_category_analysis(category_counts, revenue_per_category):
     # Category counts
     ax[1].bar(category_counts.keys(), category_counts.values())
     ax[1].set_title("Antal per kategori", fontsize=15)
-    # ax[1].set_xlabel("Kategori")
+    ax[1].set_xlabel("Kategori")
     ax[1].set_ylabel("Antal", fontsize=12)
     ax[1].tick_params(axis="x", rotation=0)
     ax[1].grid(True, axis="y", linestyle="--", alpha=0.6)
@@ -72,6 +72,7 @@ def plot_category_analysis(category_counts, revenue_per_category):
     # Show numbers instead of 1e6
     ax[0].yaxis.set_major_formatter(ticker.StrMethodFormatter('{x:,.0f}'))
 
+    
     plt.tight_layout()
 
 def plot_revenue_by_city(city_revenue):
